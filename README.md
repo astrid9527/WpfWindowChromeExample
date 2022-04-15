@@ -1,12 +1,12 @@
 # WpfWindowChromeExample
 
-ԭ�ĵ�ַ��https://www.developerastrid.com/wpf/customize-title-bar-with-windowchrome-in-wpf/
+原文地址：[在 WPF 中使用 WindowChrome 自定义标题栏](https://www.developerastrid.com/wpf/wpf-windowchrome-title-bar/)
 
-���Ľ������� WPF �����ʹ�� WindowChrome �Զ����������
+本文将介绍在 WPF 中如何使用 WindowChrome 自定义标题栏。
 
-## һ��ʹ�� WindowChrome
+## 一、使用 WindowChrome
 
-�� `<Window></Window>` �ڵ���д���´�����ܹ���ɿͻ�����Client Area�����ǿͻ�����Non-client Area���ĸ��ǣ�
+在 `<Window></Window>` 节点里写如下代码便能够完成客户区（Client Area）到非客户区（Non-client Area）的覆盖：
 
 ```xml
 <WindowChrome.WindowChrome>
@@ -14,12 +14,9 @@
 </WindowChrome.WindowChrome>
 ```
 
-<figure><img src="https://cdn.developerastrid.com/img/202202271350196.png" alt="��ʽ�Ѿ����ڵ�" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center">
-            <p>��ʽ�Ѿ����ڵ�</p>
-        </figcaption>
-</figure>
+<figure><img src="https://cdn.developerastrid.com/img/202202271350196.png" alt="样式已经被遮挡" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center"><p>样式已经被遮挡</p></figcaption></figure>
 
-���ڣ�Ϊ���ܹ��۲쵽 `WindowChrome` �����������õ�Ч��������Ϊ `Window` ����һ���µ� `Template`��������ǿյģ�������û��ʲô�����ܹ��ڵ��������õ���ʽ�ˡ�
+现在，为了能够观察到 `WindowChrome` 各种属性设置的效果，我们为 `Window` 定义一个新的 `Template`，里面就是空的，这样就没有什么内容能够遮挡我们设置的样式了。
 
 ```xml
 <Window.Template>
@@ -29,14 +26,11 @@
 </Window.Template>
 ```
 
-<figure><img src="https://cdn.developerastrid.com/img/202202271352396.png" alt="û���ڵ��Ĵ���" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center">
-            <p>û���ڵ��Ĵ���</p>
-        </figcaption>
-</figure>
+<figure><img src="https://cdn.developerastrid.com/img/202202271352396.png" alt="没有遮挡的窗口" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center"><p>没有遮挡的窗口</p></figcaption></figure>
 
-Ȼ��������ˣ�����Ҳֻ�����ϵͳ����ɫ�߿�����⣬û�н���������ڵ���ק�������⡣���ұ߿����֮��
+然而即便如此，我们也只解决了系统主题色边框的问题，没有解决调整窗口的拖拽热区问题。而且边框还如此之丑。
 
-### 1.1 `GlassFrameThickness` �� `NonClientFrameEdges`
+### 1.1 `GlassFrameThickness` 和 `NonClientFrameEdges`
 
 ```xml
 <WindowChrome.WindowChrome>
@@ -44,16 +38,13 @@
 </WindowChrome.WindowChrome>
 ```
 
-<figure><img src="https://cdn.developerastrid.com/img/202202271356743.png" alt="���� GlassFrameThickness �� NonClientFrameEdges" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center">
-            <p>���� GlassFrameThickness �� NonClientFrameEdges</p>
-        </figcaption>
-</figure>
+<figure><img src="https://cdn.developerastrid.com/img/202202271356743.png" alt="设置 GlassFrameThickness 和 NonClientFrameEdges" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center"><p>设置 GlassFrameThickness 和 NonClientFrameEdges</p></figcaption></figure>
 
-�������������ģ��ñȽ����ˡ�
+到这里，我们算是模拟得比较像了。
 
-## �������� Window �Ŀؼ�ģ��
+## 二、定制 Window 的控件模板
 
-`WindowChrome` �ṩ�ͻ������ݸ��ǵ��ǿͻ�������������������ͨ������ `Window` �� `ControlTemplate` �ܹ��ڱ�֤ԭ�����������ͬʱ�������ܶ������ǵĴ�����ʽ��
+`WindowChrome` 提供客户区内容覆盖到非客户区的能力，所以我们通过定制 `Window` 的 `ControlTemplate` 能够在保证原生窗口体验的同时，尽可能定制我们的窗口样式。
 
 ```xml
 <Window.Template>
@@ -77,14 +68,11 @@
 </Grid>
 ```
 
-<figure><img src="https://cdn.developerastrid.com/img/202202271421984.png" alt="�ͻ������ݸ��ǵ��ǿͻ���" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center">
-            <p>�ͻ������ݸ��ǵ��ǿͻ���</p>
-        </figcaption>
-</figure>
+<figure><img src="https://cdn.developerastrid.com/img/202202271421984.png" alt="客户区内容覆盖到非客户区" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center"><p>客户区内容覆盖到非客户区</p></figcaption></figure>
 
-���Կ��� `<Grid>`���ͻ����������ݸ��ǵ��˷ǿͻ���������Ĭ�ϵġ���С����������󻯡������رա����ܻ����ڵģ�Ҳ�ǿ��Ե���ģ�ֻ�ǿ������˶��ѣ����ͻ������ǣ���
+可以看到 `<Grid>`（客户区）的内容覆盖到了非客户区，并且默认的“最小化”、“最大化”、“关闭”功能还是在的，也是可以点击的，只是看不见了而已（被客户区覆盖）。
 
-���ǵ���һ�±߾࣬�÷ǿͻ�����¶������
+我们调整一下边距，让非客户区域露出来。
 
 ```xml
 <Border Name="RootBorder"  Padding="0 30 0 0" BorderBrush="Transparent" BorderThickness="4 0 4 4">
@@ -96,14 +84,11 @@
 </Border>
 ```
 
-<figure><img src="https://cdn.developerastrid.com/img/202202271426466.png" alt="�����ͻ�����ı߾�" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center">
-            <p>�����ͻ�����ı߾�</p>
-        </figcaption>
-</figure>
+<figure><img src="https://cdn.developerastrid.com/img/202202271426466.png" alt="调整客户区域的边距" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center"><p>调整客户区域的边距</p></figcaption></figure>
 
-### 2.1 ���Ʋ���
+### 2.1 定制布局
 
-�� `Grid` ��Ϊ�������У�����һ����Ϊ������������һ����Ϊ�������塣
+把 `Grid` 分为上下两行，上面一行作为标题栏，下面一行作为内容主体。
 
 ```xml
 <Grid>
@@ -111,35 +96,32 @@
         <RowDefinition Height="Auto"></RowDefinition>
         <RowDefinition Height="*"></RowDefinition>
     </Grid.RowDefinitions>
-    <!--������ ��ʼ-->
+    <!--标题栏 开始-->
     <Border Grid.Row="0" Height="30" Margin="0 -29 0 0">
         <DockPanel>
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                <Button Content="��С��"></Button>
-                <Button Content="���"></Button>
-                <Button Content="���»�ԭ"></Button>
-                <Button Content="�ر�"></Button>
+                <Button Content="最小化"></Button>
+                <Button Content="最大化"></Button>
+                <Button Content="向下还原"></Button>
+                <Button Content="关闭"></Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock 
-                    Text="�Զ���ı�����" 
+                <TextBlock
+                    Text="自定义的标题栏"
                     VerticalAlignment="Center"></TextBlock>
             </StackPanel>
         </DockPanel>
     </Border>
-    <!--������ ����-->
+    <!--标题栏 结束-->
     <Grid Grid.Row="1">
-        <TextBlock Text="������������"></TextBlock>
+        <TextBlock Text="主体内容区域"></TextBlock>
     </Grid>
 </Grid>
 ```
 
-<figure><img src="https://cdn.developerastrid.com/img/202202271434450.png" alt="���Ʋ���" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center">
-            <p>���Ʋ���</p>
-        </figcaption>
-</figure>
+<figure><img src="https://cdn.developerastrid.com/img/202202271434450.png" alt="定制布局" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center"><p>定制布局</p></figcaption></figure>
 
-���ڣ�������Ͻǣ����ǻᴥ��Ĭ�ϵġ���С����������󻯡������رա���Ϊ�����ԣ�������Ҫ��������Ĭ����Ϊ��
+现在，点击右上角，还是会触发默认的“最小化”、“最大化”、“关闭”行为。所以，我们需要禁用它的默认行为。
 
 ```xml
 <WindowChrome.WindowChrome>
@@ -147,9 +129,9 @@
 </WindowChrome.WindowChrome>
 ```
 
-### 2.2 �Զ��塰��С����������󻯡������رա��¼�
+### 2.2 自定义“最小化”、“最大化”、“关闭”事件
 
-��������
+定义命令
 
 ```xml
 <Window.CommandBindings>
@@ -160,26 +142,26 @@
 </Window.CommandBindings>
 ```
 
-��ť�ϰ�����
+按钮上绑定命令
 
 ```xml
-<Button Name="ButtonMinimizeWindow"  Content="��С��" 
+<Button Name="ButtonMinimizeWindow"  Content="最小化"
         WindowChrome.IsHitTestVisibleInChrome="True"
         Command="{x:Static SystemCommands.MinimizeWindowCommand}"></Button>
-<Button Name="ButtonMaximizeWindow" Content="���" 
+<Button Name="ButtonMaximizeWindow" Content="最大化"
         WindowChrome.IsHitTestVisibleInChrome="True"
         Command="{x:Static SystemCommands.MaximizeWindowCommand}"></Button>
-<Button Name="ButtonRestoreWindow" Content="���»�ԭ" 
+<Button Name="ButtonRestoreWindow" Content="向下还原"
         WindowChrome.IsHitTestVisibleInChrome="True"
         Command="{x:Static SystemCommands.RestoreWindowCommand}"></Button>
-<Button Name="ButtonCloseWindow" Content="�ر�"
+<Button Name="ButtonCloseWindow" Content="关闭"
         WindowChrome.IsHitTestVisibleInChrome="True"
         Command="{x:Static SystemCommands.CloseWindowCommand}"></Button>
 ```
 
-### 2.3 ������ť
+### 2.3 美化按钮
 
-����������Դ���ο� [https://blog.csdn.net/mybelief321/article/details/102461597](https://blog.csdn.net/mybelief321/article/details/102461597)
+定义字体资源，参考 [https://blog.csdn.net/mybelief321/article/details/102461597](https://blog.csdn.net/mybelief321/article/details/102461597)
 
 ```xml
 <Window.Resources>
@@ -189,7 +171,7 @@
 </Window.Resources>
 ```
 
-ʹ��������Դ
+使用字体资源
 
 ```xml
 <Button Name="ButtonMinimizeWindow" FontFamily="{StaticResource IconFont}"  Content="&#xe629;"  Width="24" Height="24"
@@ -207,12 +189,9 @@
         Command="{x:Static SystemCommands.CloseWindowCommand}"></Button>
 ```
 
-<figure><img src="https://cdn.developerastrid.com/img/202202271504795.png" alt="������ť" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center">
-            <p>������ť</p>
-        </figcaption>
-</figure>
+<figure><img src="https://cdn.developerastrid.com/img/202202271504795.png" alt="美化按钮" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center"><p>美化按钮</p></figcaption></figure>
 
-Ĭ�ϵİ�ť���ǻ���ʾ�������Ӹ��������Ϳ������ˡ�
+默认的按钮还是会显示，个他加给背景，就看不到了。
 
 ```xml
 <Border Grid.Row="0" Height="30" Margin="0 -29 0 0">
@@ -233,22 +212,19 @@
                     Command="{x:Static SystemCommands.CloseWindowCommand}"></Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock 
-                Text="�Զ���ı�����" 
+            <TextBlock
+                Text="自定义的标题栏"
                 VerticalAlignment="Center"></TextBlock>
         </StackPanel>
     </DockPanel>
 </Border>
 ```
 
-<figure><img src="https://cdn.developerastrid.com/img/202202271507818.png" alt="��ɫ����" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center">
-            <p>��ɫ����</p>
-        </figcaption>
-</figure>
+<figure><img src="https://cdn.developerastrid.com/img/202202271507818.png" alt="红色背景" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center"><p>红色背景</p></figcaption></figure>
 
-## ������������
+## 三、完整代码
 
-### 3.1 XAML ����
+### 3.1 XAML 代码
 
 ```xml
 <Window x:Class="WindowChromeExample.MainWindow"
@@ -256,14 +232,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="450" Width="800">
 
-    <!--������Դ-->
+    <!--字体资源-->
     <Window.Resources>
         <ResourceDictionary>
             <FontFamily x:Key="IconFont">pack://application:,,,/WindowChromeExample;component/#iconfont,</FontFamily>
         </ResourceDictionary>
     </Window.Resources>
 
-    <!--�Զ�������� ��ʼ-->
+    <!--自定义标题栏 开始-->
     <Window.Template>
         <ControlTemplate TargetType="Window">
             <Border Name="RootBorder"  Padding="0 30 0 0" BorderBrush="Transparent" BorderThickness="4 0 4 4">
@@ -280,20 +256,20 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Template>
-    <!--�Զ�������� ����-->
+    <!--自定义标题栏 结束-->
 
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0 30 0 0" NonClientFrameEdges="Left,Bottom,Right" UseAeroCaptionButtons="False"/>
     </WindowChrome.WindowChrome>
 
-    <!--��������ť�¼� ��ʼ-->
+    <!--标题栏按钮事件 开始-->
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted_CloseWindow"/>
         <CommandBinding Command="{x:Static SystemCommands.MaximizeWindowCommand}" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted_MaximizeWindow"/>
         <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted_MinimizeWindow"/>
         <CommandBinding Command="{x:Static SystemCommands.RestoreWindowCommand}" CanExecute="CommandBinding_OnCanExecute" Executed="CommandBinding_OnExecuted_RestoreWindow"/>
     </Window.CommandBindings>
-    <!--��������ť�¼� ����-->
+    <!--标题栏按钮事件 结束-->
 
 
     <Grid>
@@ -301,54 +277,54 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <!--������ ��ʼ-->
+        <!--标题栏 开始-->
         <Border Grid.Row="0" Height="30" Margin="0 -29 0 0">
             <DockPanel Background="White">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                    <Button 
-                        Name="ButtonMinimizeWindow" 
+                    <Button
+                        Name="ButtonMinimizeWindow"
                         WindowChrome.IsHitTestVisibleInChrome="True"
                         FontFamily="{StaticResource IconFont}"
                         Width="32"
                         Content="&#xe629;"
-                        ToolTip="��С��" 
+                        ToolTip="最小化"
                         Command="{x:Static SystemCommands.MinimizeWindowCommand}"></Button>
                     <Button
-                        Name="ButtonMaximizeWindow" 
+                        Name="ButtonMaximizeWindow"
                         WindowChrome.IsHitTestVisibleInChrome="True"
                         FontFamily="{StaticResource IconFont}"
                         Width="32"
                         Content="&#xe653;"
-                        ToolTip="���" 
+                        ToolTip="最大化"
                         Command="{x:Static SystemCommands.MaximizeWindowCommand}"></Button>
-                    <Button 
-                        Name="ButtonRestoreWindow" 
+                    <Button
+                        Name="ButtonRestoreWindow"
                         WindowChrome.IsHitTestVisibleInChrome="True"
                         FontFamily="{StaticResource IconFont}"
                         Width="32"
                         Content="&#xe677;"
-                        ToolTip="���»�ԭ" 
+                        ToolTip="向下还原"
                         Visibility="Collapsed"
                         Command="{x:Static SystemCommands.RestoreWindowCommand}"></Button>
-                    <Button 
+                    <Button
                         Name="ButtonCloseWindow"
                         WindowChrome.IsHitTestVisibleInChrome="True"
                         FontFamily="{StaticResource IconFont}"
                         Width="32"
                         Content="&#xeaf2;"
-                        ToolTip="�ر�" 
+                        ToolTip="关闭"
                         Command="{x:Static SystemCommands.CloseWindowCommand}"></Button>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock 
-                        Text="�Զ��������" 
+                    <TextBlock
+                        Text="自定义标题栏"
                         VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
             </DockPanel>
         </Border>
-        <!--������ ����-->
+        <!--标题栏 结束-->
         <Grid Grid.Row="1">
-            <TextBlock Text="��������"></TextBlock>
+            <TextBlock Text="主体内容"></TextBlock>
         </Grid>
     </Grid>
 </Window>
@@ -416,20 +392,17 @@ namespace WindowChromeExample
 }
 ```
 
-### 3.3 ����Ч��
+### 3.3 最终效果
 
-<figure><img src="https://cdn.developerastrid.com/img/202202271523810.png" alt="����Ч��" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center">
-            <p>����Ч��</p>
-        </figcaption>
-</figure>
+<figure><img src="https://cdn.developerastrid.com/img/202202271523810.png" alt="最终效果" class="img-fluid mx-auto d-block figure-img"><figcaption class="figure-caption text-center"><p>最终效果</p></figcaption></figure>
 
-## Դ���ַ
+## 源码地址
 
-������Ѿ������Ľ������� WPF �����ʹ�� WindowChrome �Զ����������
+到这里，已经完整的介绍了在 WPF 中如何使用 WindowChrome 自定义标题栏。
 
-Դ���ַ��[https://github.com/astrid9527/WpfWindowChromeExample](https://github.com/astrid9527/WpfWindowChromeExample)
+源码地址：[https://github.com/astrid9527/WpfWindowChromeExample](https://github.com/astrid9527/WpfWindowChromeExample)
 
-## �ο�
+## 参考
 
 - [https://docs.microsoft.com/zh-cn/dotnet/api/system.windows.shell.windowchrome?view=net-6.0](https://docs.microsoft.com/zh-cn/dotnet/api/system.windows.shell.windowchrome?view=net-6.0)
 
@@ -438,6 +411,3 @@ namespace WindowChromeExample
 - [https://www.cnblogs.com/dino623/p/customwindowstyle.html](https://www.cnblogs.com/dino623/p/customwindowstyle.html)
 
 - [https://www.codeproject.com/Articles/5255192/Use-WindowChrome-to-Customize-the-Title-Bar-in-WPF](https://www.codeproject.com/Articles/5255192/Use-WindowChrome-to-Customize-the-Title-Bar-in-WPF)
-
-
-���꣩
